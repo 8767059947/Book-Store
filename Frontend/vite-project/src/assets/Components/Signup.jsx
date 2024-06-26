@@ -1,6 +1,8 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
-
+import axios from "axios";
+import User from '../../../../../Backend/model/user.model';
+import toast from 'react-hot-toast';
 function Signup() {
   const {
     register,
@@ -8,8 +10,28 @@ function Signup() {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const userInfo = {
+      fullName:data.fullname,
+      email:data.email,
+      password:data.password,
+    }
+    await axios.post("http://localhost:3000/user/signup",userInfo)
+    .then((res) =>
+    {
+      console.log(res.data);
+      if(res.data){
+        toast.success("Signed Up Successfully!")
+      }
+      localStorage.setItem("Users", JSON.stringify(res.data.user));
+
+    }).catch((err) =>
+      {
+        if(err.response){
+          console.log(err);
+        toast.error("Error:" +  err.response.data.message);
+        }
+      })
     const modal = document.getElementById('my_modal_3');
     modal.close(); // Use the close() method of the dialog element // Log form data
     // You can add logic here to handle form submission (e.g., send data to server)
@@ -133,7 +155,7 @@ function Signup() {
 
 
 
-       {...register("name", { required: true })}
+       {...register("fullname", { required: true })}
 
 
 
@@ -145,7 +167,7 @@ function Signup() {
 
 
 
-       {errors.name && <span className='text-red-500'>This field is required</span>}
+       {errors.fullname && <span className='text-red-500'>This field is required</span>}
 
 
 
