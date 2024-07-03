@@ -14,7 +14,7 @@ function Freebook() {
     const getBook = async() =>
       {
         try{
-          const res = await axios.get("book-store-api-nu.vercel.app/book");
+          const res = await axios.get("https://book-store-api-nu.vercel.app//book");
           const data = res.data.filter((data) => data.catgory === "free");
           console.log(data);
           setBook(data);
