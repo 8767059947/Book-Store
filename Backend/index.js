@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors(
     {
-        origin:[],
+        origin:["https://deploy-BookStore-1whq.vercel.app"],
         methods:["POST", "GET"],
         credentials:true,
     }
