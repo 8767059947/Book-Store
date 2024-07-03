@@ -20,7 +20,7 @@ function Banner() {
         email:data.email,
         password:data.password,
       }
-      await axios.post("http://localhost:3000/user/login",userInfo)
+      await axios.post("book-store-api-nu.vercel.app/user/login",userInfo)
       .then((res) =>
       {
         console.log(res.data);
